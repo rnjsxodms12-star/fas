@@ -1,10 +1,22 @@
 import os
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
 app = FastAPI()
+
+# ---------------------------
+# CORS 설정
+# ---------------------------
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -21,7 +33,10 @@ if DATABASE_URL:
 
 @app.get("/")
 def root():
-    return {"message": "ok", "database_url_exists": DATABASE_URL is not None}
+    return {
+        "message": "ok",
+        "database_url_exists": DATABASE_URL is not None
+    }
 
 
 @app.post("/predict")
@@ -61,7 +76,10 @@ def signup(data: dict):
     phone = data.get("phone")
 
     if not name or not email:
-        raise HTTPException(status_code=400, detail="name and email are required")
+        raise HTTPException(
+            status_code=400,
+            detail="name and email are required"
+        )
 
     with engine.begin() as conn:
         result = conn.execute(
@@ -121,7 +139,10 @@ def get_companies():
             "status": row[5]
         })
 
-    return {"count": len(data), "companies": data}
+    return {
+        "count": len(data),
+        "companies": data
+    }
 
 
 @app.get("/companies/buyers")
@@ -148,7 +169,10 @@ def get_buyers():
             "company_size": row[3]
         })
 
-    return {"count": len(data), "buyers": data}
+    return {
+        "count": len(data),
+        "buyers": data
+    }
 
 
 @app.get("/companies/suppliers")
@@ -175,7 +199,10 @@ def get_suppliers():
             "company_size": row[3]
         })
 
-    return {"count": len(data), "suppliers": data}
+    return {
+        "count": len(data),
+        "suppliers": data
+    }
 
 
 # ---------------------------
@@ -263,7 +290,10 @@ def get_rfqs():
             "created_at": str(row[7])
         })
 
-    return {"count": len(data), "rfqs": data}
+    return {
+        "count": len(data),
+        "rfqs": data
+    }
 
 
 # ---------------------------
@@ -322,6 +352,7 @@ def match_suppliers(rfq_id: int):
         rows = match_result.fetchall()
 
     suppliers = []
+
     for row in rows:
         best_it_grade = row[6]
         best_tolerance_mm = row[7]
