@@ -264,3 +264,90 @@ def get_rfqs():
         })
 
     return {"count": len(data), "rfqs": data}
+
+
+# ---------------------------
+# Matching API
+# ---------------------------
+
+@app.get("/match/{rfq_id}")
+def match_suppliers(rfq_id: int):
+    if engine is None:
+        raise HTTPException(status_code=500, detail="DATABASE_URL is not set")
+
+    with engine.connect() as conn:
+        rfq_result = conn.execute(
+            text("""
+                SELECT id, buyer_code, material, process, quantity, due_date, note
+                FROM rfqs
+                WHERE id = :rfq_id
+            """),
+            {"rfq_id": rfq_id}
+        )
+
+        rfq = rfq_result.fetchone()
+
+        if rfq is None:
+            raise HTTPException(status_code=404, detail="RFQ not found")
+
+        match_result = conn.execute(
+            text("""
+                SELECT
+                    c.company_code,
+                    c.company_name,
+                    c.region,
+                    c.company_size,
+                    pc.processes,
+                    pc.service_mode,
+                    pc.best_it_grade,
+                    pc.best_tolerance_mm,
+                    pc.best_ra_um,
+                    pc.avg_lead_days,
+                    mc.materials
+                FROM companies c
+                JOIN process_capabilities pc
+                    ON c.company_code = pc.company_code
+                JOIN material_capabilities mc
+                    ON c.company_code = mc.company_code
+                WHERE c.company_type = 'supplier'
+                  AND pc.processes ILIKE '%' || :process || '%'
+                  AND mc.materials ILIKE '%' || :material || '%'
+                ORDER BY pc.avg_lead_days ASC
+            """),
+            {
+                "process": rfq[3],
+                "material": rfq[2]
+            }
+        )
+
+        rows = match_result.fetchall()
+
+    suppliers = []
+    for row in rows:
+        suppliers.append({
+            "company_code": row[0],
+            "company_name": row[1],
+            "region": row[2],
+            "company_size": row[3],
+            "matched_processes": row[4],
+            "service_mode": row[5],
+            "best_it_grade": row[6],
+            "best_tolerance_mm": row[7],
+            "best_ra_um": row[8],
+            "avg_lead_days": row[9],
+            "matched_materials": row[10]
+        })
+
+    return {
+        "rfq": {
+            "id": rfq[0],
+            "buyer_code": rfq[1],
+            "material": rfq[2],
+            "process": rfq[3],
+            "quantity": rfq[4],
+            "due_date": rfq[5],
+            "note": rfq[6]
+        },
+        "match_count": len(suppliers),
+        "recommended_suppliers": suppliers
+    }
