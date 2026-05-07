@@ -194,10 +194,10 @@ def get_buyers():
     with engine.connect() as conn:
         result = conn.execute(text(f"""
             SELECT
-                buyer_id         AS company_code,
-                buyer_name       AS company_name,
-                COALESCE(region, '') AS region,
-                COALESCE(company_scale, '') AS company_size
+                buyer_id   AS company_code,
+                buyer_name AS company_name,
+                ''         AS region,
+                ''         AS company_size
             FROM {SCHEMA}.buyers
             ORDER BY buyer_name
         """))
@@ -518,18 +518,61 @@ def save_vlm_result(data: dict):
     if engine is None:
         raise HTTPException(status_code=500, detail="DATABASE_URL is not set")
 
-    drawing_no = data.get("drawing_no")
+    # raw_json 형태로 감싸서 들어오면 내부 raw_json만 저장하고,
+    # VLM 원본 JSON이 바로 들어오면 전체 data를 저장한다.
+    raw_json = data.get("raw_json", data)
+
+    # drawing_no 우선순위:
+    # 1) data.drawing_no
+    # 2) data.drawing_id
+    # 3) raw_json.drawing_id
+    # 4) unknown
+    drawing_no = (
+        data.get("drawing_no")
+        or data.get("drawing_id")
+        or raw_json.get("drawing_id")
+        or "unknown"
+    )
+
+    # VLM JSON의 image_path를 DB의 file_uri에 같이 저장
+    file_uri = (
+        data.get("file_uri")
+        or data.get("image_path")
+        or raw_json.get("image_path")
+    )
+
+    original_filename = None
+    if file_uri:
+        original_filename = file_uri.split("/")[-1]
 
     with engine.begin() as conn:
         result = conn.execute(
             text(f"""
-                INSERT INTO {SCHEMA}.drawings (drawing_no, vlm_result_jsonb)
-                VALUES (:drawing_no, :raw_json::jsonb)
-                RETURNING drawing_id, drawing_no, vlm_result_jsonb, created_at
+                INSERT INTO {SCHEMA}.drawings (
+                    drawing_no,
+                    file_uri,
+                    original_filename,
+                    vlm_result_jsonb
+                )
+                VALUES (
+                    :drawing_no,
+                    :file_uri,
+                    :original_filename,
+                    CAST(:raw_json AS JSONB)
+                )
+                RETURNING
+                    drawing_id,
+                    drawing_no,
+                    file_uri,
+                    original_filename,
+                    vlm_result_jsonb,
+                    created_at
             """),
             {
                 "drawing_no": drawing_no,
-                "raw_json": json.dumps(data, ensure_ascii=False),
+                "file_uri": file_uri,
+                "original_filename": original_filename,
+                "raw_json": json.dumps(raw_json, ensure_ascii=False),
             },
         )
         row = result.fetchone()
@@ -540,11 +583,12 @@ def save_vlm_result(data: dict):
         "data": {
             "id": str(row[0]),
             "drawing_no": row[1],
-            "raw_json": row[2],
-            "created_at": str(row[3]),
+            "file_uri": row[2],
+            "original_filename": row[3],
+            "raw_json": row[4],
+            "created_at": str(row[5]),
         },
     }
-
 
 @app.get("/vlm-results")
 def get_vlm_results():
