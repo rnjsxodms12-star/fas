@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -159,12 +159,12 @@
           1. 도면 파일 업로드 <span class="required-dot">필수</span>
         </div>
         <div class="upload-area">
-          <div class="upload-box">
+          <div class="upload-box" onclick="document.getElementById('file-input').click()">
             <input type="file" id="file-input" hidden multiple>
             <div class="upload-icon"><i class="ri-upload-cloud-2-line"></i></div>
             <p>도면 파일을 드래그하거나 클릭하여 업로드</p>
             <p class="sub">DWG, DXF, PDF, STEP, IGES 등 파일을 지원합니다.</p>
-        <button type="button" class="btn-primary" style="margin-top:16px;">파일 선택</button>
+        <button type="button" class="btn-primary" style="margin-top:16px;" onclick="event.stopPropagation(); document.getElementById('file-input').click()">파일 선택</button>
             <p class="sub" style="margin-top:10px;">선택된 파일: <span id="file-name-display" style="font-weight:600; color:#111;">없음</span></p>
           </div>
           <div class="upload-formats card" style="padding:16px;">
@@ -386,17 +386,62 @@
   document.querySelectorAll('select')[4].addEventListener('change', e => {
     document.getElementById('s-budget').textContent = e.target.value || '-';
   });
-  document.getElementById('file-input').addEventListener('change', e => {
-    const files = e.target.files;
-    document.getElementById('s-file').textContent = files.length + '개';
-    
+  async function uploadDrawingToServer(file) {
     const displaySpan = document.getElementById('file-name-display');
-    if (files.length === 0) {
-      displaySpan.textContent = "없음";
-    } else if (files.length === 1) {
-      displaySpan.textContent = files[0].name;
-    } else {
-      displaySpan.textContent = files[0].name + " 외 " + (files.length - 1) + "건";
+    const sFile = document.getElementById('s-file');
+    
+    displaySpan.textContent = "업로드 중: " + file.name + "...";
+    displaySpan.style.color = "#7A5C00";
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/api/drawings/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      if (!res.ok) {
+        if (res.status === 500) {
+          throw new Error("이미 업로드된 파일이거나 중복 파일일 수 있습니다.");
+        }
+        const text = await res.text();
+        throw new Error(`도면 업로드 실패: ${res.status} ${text}`);
+      }
+
+      const data = await res.json();
+      
+      // Save to localStorage
+      localStorage.setItem('imma_drawing_id', data.drawing_id);
+      localStorage.setItem('imma_drawing_file_uri', data.file_uri);
+      localStorage.setItem('imma_drawing_original_filename', data.original_filename);
+      localStorage.setItem('imma_drawing_sha256', data.file_sha256);
+
+      // Update UI
+      displaySpan.innerHTML = `도면 업로드 완료: ${data.original_filename} <br><small style="font-size:10px; color:#888; font-weight:400; display:block; margin-top:4px;">ID: ${data.drawing_id}</small>`;
+      displaySpan.style.color = "#059669"; // Success green
+      sFile.textContent = "1개 (업로드됨)";
+      
+      return data;
+    } catch (err) {
+      console.error(err);
+      displaySpan.textContent = "업로드 실패: " + err.message;
+      displaySpan.style.color = "#dc2626"; // Error red
+      alert(err.message);
+      throw err;
+    }
+  }
+
+  document.getElementById('file-input').addEventListener('change', async e => {
+    const files = e.target.files;
+    if (files.length === 0) return;
+    
+    // For this task, we upload the first file
+    try {
+      await uploadDrawingToServer(files[0]);
+    } catch (err) {
+      // Error already handled in uploadDrawingToServer
     }
   });
 </script>
