@@ -28,7 +28,7 @@ app.add_middleware(
 # Frontend UI
 # =========================
 BASE_DIR = Path(__file__).resolve().parent
-UI_DIR = BASE_DIR / "machub_ui"
+UI_DIR = BASE_DIR / "machhub_ui"
 
 if UI_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(UI_DIR)), name="static")
@@ -41,7 +41,7 @@ def serve_landing():
         return FileResponse(landing_path)
     return {
         "message": "IMMA API server is running",
-        "ui": "machub_ui/landing.html not found"
+        "ui": "machhub_ui/landing.html not found"
     }
 
 
@@ -73,6 +73,31 @@ def serve_quote_request():
 @app.get("/order-management", include_in_schema=False)
 def serve_order_management():
     return FileResponse(UI_DIR / "order-management.html")
+
+
+@app.get("/client-fulfillment", include_in_schema=False)
+def serve_client_fulfillment():
+    return FileResponse(UI_DIR / "client-fulfillment.html")
+
+
+@app.get("/supplier-workbench", include_in_schema=False)
+def serve_supplier_workbench():
+    return FileResponse(UI_DIR / "supplier-workbench.html")
+
+
+@app.get("/supplier-settings", include_in_schema=False)
+def serve_supplier_settings():
+    return FileResponse(UI_DIR / "supplier-settings.html")
+
+
+@app.get("/admin-control-center", include_in_schema=False)
+def serve_admin_control_center():
+    return FileResponse(UI_DIR / "admin-control-center.html")
+
+
+@app.get("/admin-operations", include_in_schema=False)
+def serve_admin_operations():
+    return FileResponse(UI_DIR / "admin-operations.html")
 
 
 # =========================
