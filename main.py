@@ -34,70 +34,120 @@ if UI_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(UI_DIR)), name="static")
 
 
-@app.get("/", include_in_schema=False)
-def serve_landing():
-    landing_path = UI_DIR / "landing.html"
-    if landing_path.exists():
-        return FileResponse(landing_path)
+def serve_ui_file(filename: str):
+    file_path = UI_DIR / filename
+    if file_path.exists():
+        return FileResponse(file_path)
+
     return {
         "message": "IMMA API server is running",
-        "ui": "machhub_ui/landing.html not found"
+        "ui_error": f"machhub_ui/{filename} not found"
     }
+
+
+@app.get("/", include_in_schema=False)
+def serve_landing():
+    return serve_ui_file("landing.html")
+
+
+@app.get("/client-register", include_in_schema=False)
+def serve_client_register():
+    return serve_ui_file("client-register.html")
 
 
 @app.get("/client", include_in_schema=False)
 def serve_client():
-    return FileResponse(UI_DIR / "client-dashboard.html")
+    return serve_ui_file("client-dashboard.html")
 
 
 @app.get("/supplier", include_in_schema=False)
 def serve_supplier():
-    return FileResponse(UI_DIR / "supplier-dashboard.html")
+    return serve_ui_file("supplier-dashboard.html")
 
 
 @app.get("/admin-ui", include_in_schema=False)
 def serve_admin_ui():
-    return FileResponse(UI_DIR / "admin-dashboard.html")
+    return serve_ui_file("admin-dashboard.html")
 
 
 @app.get("/matching-ui", include_in_schema=False)
 def serve_matching_ui():
-    return FileResponse(UI_DIR / "matching.html")
+    return serve_ui_file("matching.html")
 
 
 @app.get("/quote-request", include_in_schema=False)
 def serve_quote_request():
-    return FileResponse(UI_DIR / "quote-request.html")
+    return serve_ui_file("quote-request.html")
 
 
 @app.get("/order-management", include_in_schema=False)
 def serve_order_management():
-    return FileResponse(UI_DIR / "order-management.html")
+    return serve_ui_file("order-management.html")
 
 
 @app.get("/client-fulfillment", include_in_schema=False)
 def serve_client_fulfillment():
-    return FileResponse(UI_DIR / "client-fulfillment.html")
+    return serve_ui_file("client-fulfillment.html")
 
 
 @app.get("/supplier-workbench", include_in_schema=False)
 def serve_supplier_workbench():
-    return FileResponse(UI_DIR / "supplier-workbench.html")
+    return serve_ui_file("supplier-workbench.html")
 
 
 @app.get("/supplier-settings", include_in_schema=False)
 def serve_supplier_settings():
-    return FileResponse(UI_DIR / "supplier-settings.html")
+    return serve_ui_file("supplier-settings.html")
 
 
 @app.get("/admin-control-center", include_in_schema=False)
 def serve_admin_control_center():
-    return FileResponse(UI_DIR / "admin-control-center.html")
+    return serve_ui_file("admin-control-center.html")
 
 
 @app.get("/admin-operations", include_in_schema=False)
 def serve_admin_operations():
-    return FileResponse(UI_DIR / "admin-operations.html")
+    return serve_ui_file("admin-operations.html")
+
+
+@app.get("/payment-success", include_in_schema=False)
+def serve_payment_success():
+    return serve_ui_file("payment-success.html")
+
+
+@app.get("/how-to-use", include_in_schema=False)
+def serve_how_to_use():
+    return serve_ui_file("how-to-use.html")
+
+
+@app.get("/process-flow", include_in_schema=False)
+def serve_process_flow():
+    return serve_ui_file("process-flow.html")
+
+
+@app.get("/search-suppliers", include_in_schema=False)
+def serve_search_suppliers():
+    return serve_ui_file("search-suppliers.html")
+
+
+@app.get("/support", include_in_schema=False)
+def serve_support():
+    return serve_ui_file("support.html")
+
+
+@app.get("/supplier-messages", include_in_schema=False)
+def serve_supplier_messages():
+    return serve_ui_file("supplier-messages.html")
+
+
+@app.get("/supplier-register", include_in_schema=False)
+def serve_supplier_register():
+    return serve_ui_file("supplier-register.html")
+
+
+@app.get("/supplier-rfq-detail", include_in_schema=False)
+def serve_supplier_rfq_detail():
+    return serve_ui_file("supplier-rfq-detail.html")
 
 
 # =========================
