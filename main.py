@@ -25,6 +25,57 @@ app.add_middleware(
 )
 
 # =========================
+# Frontend UI
+# =========================
+BASE_DIR = Path(__file__).resolve().parent
+UI_DIR = BASE_DIR / "machub_ui"
+
+if UI_DIR.exists():
+    app.mount("/static", StaticFiles(directory=str(UI_DIR)), name="static")
+
+
+@app.get("/", include_in_schema=False)
+def serve_landing():
+    landing_path = UI_DIR / "landing.html"
+    if landing_path.exists():
+        return FileResponse(landing_path)
+    return {
+        "message": "IMMA API server is running",
+        "ui": "machub_ui/landing.html not found"
+    }
+
+
+@app.get("/client", include_in_schema=False)
+def serve_client():
+    return FileResponse(UI_DIR / "client-dashboard.html")
+
+
+@app.get("/supplier", include_in_schema=False)
+def serve_supplier():
+    return FileResponse(UI_DIR / "supplier-dashboard.html")
+
+
+@app.get("/admin-ui", include_in_schema=False)
+def serve_admin_ui():
+    return FileResponse(UI_DIR / "admin-dashboard.html")
+
+
+@app.get("/matching-ui", include_in_schema=False)
+def serve_matching_ui():
+    return FileResponse(UI_DIR / "matching.html")
+
+
+@app.get("/quote-request", include_in_schema=False)
+def serve_quote_request():
+    return FileResponse(UI_DIR / "quote-request.html")
+
+
+@app.get("/order-management", include_in_schema=False)
+def serve_order_management():
+    return FileResponse(UI_DIR / "order-management.html")
+
+
+# =========================
 # API Routers
 # =========================
 app.include_router(legacy.router)
@@ -40,40 +91,3 @@ app.include_router(reviews.router)
 app.include_router(notifications.router)
 app.include_router(admin.router)
 app.include_router(catalog.router)
-
-
-# =========================
-# Frontend Static Files
-# =========================
-BASE_DIR = Path(__file__).resolve().parent
-FRONTEND_DIR = BASE_DIR / "frontend"
-
-if FRONTEND_DIR.exists():
-    app.mount(
-        "/static",
-        StaticFiles(directory=str(FRONTEND_DIR)),
-        name="static"
-    )
-
-
-@app.get("/", include_in_schema=False)
-def serve_index():
-    index_path = FRONTEND_DIR / "index.html"
-    if index_path.exists():
-        return FileResponse(index_path)
-    return {"message": "IMMA API server is running", "frontend": "index.html not found"}
-
-
-@app.get("/buyer", include_in_schema=False)
-def serve_buyer():
-    return FileResponse(FRONTEND_DIR / "buyer.html")
-
-
-@app.get("/supplier", include_in_schema=False)
-def serve_supplier():
-    return FileResponse(FRONTEND_DIR / "supplier.html")
-
-
-@app.get("/admin-ui", include_in_schema=False)
-def serve_admin_ui():
-    return FileResponse(FRONTEND_DIR / "admin.html")
