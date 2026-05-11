@@ -1,0 +1,1594 @@
+:root {
+    /* IMMA Brand */
+    --primary: #FFD100;
+    --primary-hover: #E6BC00;
+    --primary-dark: #B89200;
+    --primary-light: rgba(255, 209, 0, 0.12);
+    --primary-text: #111111;
+    /* Layout */
+    --bg: #F4F6F8;
+    --surface: #FFFFFF;
+    --sidebar-bg: #111111;
+    /* Text */
+    --text-dark: #111111;
+    --text-main: #1E293B;
+    --text-muted: #64748B;
+    /* Borders */
+    --border: #E2E8F0;
+    /* Status */
+    --warning: #F97316;
+    --success: #22C55E;
+    --danger: #EF4444;
+    --success-light: rgba(34, 197, 94, 0.1);
+    --danger-light: rgba(239, 68, 68, 0.1);
+    --warning-light: rgba(249, 115, 22, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    padding: 24px;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+
+
+.text-primary {
+    color: var(--primary);
+}
+
+.text-warning {
+    color: var(--warning);
+}
+
+.text-success {
+    color: var(--success);
+}
+
+.text-danger {
+    color: var(--danger);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.bg-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    max-width: 1600px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+.card {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s;
+}
+
+.card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.09);
+}
+
+.sidebar {
+    position: sticky;
+    top: 24px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+
+.badge-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.sidebar-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-top: 32px;
+    line-height: 1.3;
+}
+
+.sidebar-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+/* Buttons */
+button {
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s;
+    border: none;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--primary-text);
+    padding: 12px 20px;
+    box-shadow: 0 2px 8px rgba(255, 209, 0, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 4px 14px rgba(255, 209, 0, 0.4);
+}
+
+.btn-outline {
+    background-color: white;
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 12px 20px;
+}
+
+.btn-outline:hover {
+    background-color: var(--bg);
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border-radius: 6px;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.mt-2 {
+    margin-top: 8px;
+}
+
+.mt-3 {
+    margin-top: 12px;
+}
+
+.mt-4 {
+    margin-top: 16px;
+}
+
+.mt-6 {
+    margin-top: 24px;
+}
+
+.mt-8 {
+    margin-top: 32px;
+}
+
+.mb-2 {
+    margin-bottom: 8px;
+}
+
+.mb-4 {
+    margin-bottom: 16px;
+}
+
+.mt-auto {
+    margin-top: auto;
+}
+
+/* Sidebar Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.stat-card {
+    background: var(--bg);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.stat-card:last-child {
+    grid-column: span 2;
+}
+
+.stat-icon {
+    width: 32px;
+    height: 32px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.stat-card h3 {
+    font-size: 1.2rem;
+    margin: 4px 0;
+}
+
+.trend {
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.trend.up {
+    color: var(--success);
+}
+
+.trend.down {
+    color: var(--danger);
+}
+
+/* Main Content Grid */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.top-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.bottom-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 24px;
+}
+
+/* Step Headers */
+.step-header {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.step-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.step-header h3 {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.step-header p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Step 1 Forms */
+.section-subtitle {
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-bottom: 2px solid var(--text-main);
+    padding-bottom: 8px;
+    display: inline-block;
+}
+
+.upload-box {
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 32px 20px;
+    text-align: center;
+    background: var(--bg);
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.upload-box:hover {
+    border-color: var(--primary);
+}
+
+.upload-box i {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.upload-box p {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.upload-box span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.file-size {
+    color: var(--text-muted);
+    margin-left: auto;
+    font-size: 0.8rem;
+}
+
+.close-btn {
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--primary);
+}
+
+.col-span-2 {
+    grid-column: span 2;
+}
+
+.tags-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.tag.active {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+/* Step 2 AI Analysis */
+.ai-image-box {
+    background: #1e293b;
+    border-radius: 12px;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mock-blueprint {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
+
+.blueprint-ring {
+    position: absolute;
+    inset: 20px;
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+}
+
+.blueprint-cross {
+    position: absolute;
+    top: 50%;
+    left: -20px;
+    right: -20px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.blueprint-cross::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -80px;
+    bottom: -80px;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.marker {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: var(--warning);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border: 2px solid #1e293b;
+}
+
+.m1 {
+    top: 10px;
+    left: 10px;
+}
+
+.m2 {
+    bottom: 20px;
+    right: 10px;
+}
+
+.m3 {
+    top: 50%;
+    left: 50%;
+}
+
+.ai-status-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 12px;
+    background: var(--bg);
+    border-radius: 8px;
+}
+
+.ai-issues {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.issue-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.issue-item.danger {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.issue-item.warning {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+}
+
+.issue-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: white;
+}
+
+.issue-item.danger .issue-num {
+    background: var(--danger);
+}
+
+.issue-item.warning .issue-num {
+    background: var(--warning);
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: auto;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.btn-row {
+    display: flex;
+    gap: 12px;
+}
+
+/* Step 3 Comparison */
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.small-select {
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+}
+
+.company-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    max-height: 450px;
+    padding-right: 4px;
+}
+
+.company-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.company-list::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.company-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    transition: border-color 0.2s;
+    position: relative;
+}
+
+.company-card:hover {
+    border-color: var(--primary);
+}
+
+.company-card.recommended {
+    border: 2px solid var(--primary);
+    background: rgba(255, 209, 0, 0.05);
+}
+
+.company-card.recommended::before {
+    content: 'AI 추천';
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    background: var(--primary);
+    color: var(--primary-text);
+    font-size: 0.7rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-weight: 800;
+}
+
+.c-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.c-name {
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.c-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.c-tag {
+    background: white;
+    border: 1px solid var(--border);
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--text-muted);
+}
+
+.c-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 16px;
+}
+
+.c-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.c-val {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-top: 4px;
+}
+
+.c-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+/* Step 4 Contract */
+.contract-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.box {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    background: var(--bg);
+}
+
+.company-summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.c-icon {
+    width: 48px;
+    height: 48px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+}
+
+.text-lg {
+    font-size: 1.25rem;
+}
+
+.checkbox-label,
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+/* Step 5 Progress */
+.progress-timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 20px;
+}
+
+.p-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 2;
+    width: 60px;
+}
+
+.p-node i {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+}
+
+.p-node span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.p-node small {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.p-node.completed i {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.p-node.active i {
+    border-color: var(--primary);
+    color: var(--primary);
+    border-width: 3px;
+}
+
+.p-line {
+    flex: 1;
+    height: 3px;
+    background: var(--border);
+    transform: translateY(-16px);
+    z-index: 1;
+    margin: 0 -15px;
+}
+
+.p-line.completed {
+    background: var(--primary);
+}
+
+.update-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.update-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.update-item .time {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    width: 80px;
+}
+
+.update-item .info flex-1 {}
+
+.update-item .info strong {
+    display: block;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.update-item .info p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.img-thumb {
+    width: 60px;
+    height: 60px;
+    background: var(--bg);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    margin-left: auto;
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: white;
+    padding: 32px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.modal-content .close-btn {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.modal-content .close-btn:hover {
+    color: var(--text-dark);
+}
+
+.modal-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+/* ===== 입력값 요약 배너 (Step 1 → Step 2) ===== */
+.form-summary-banner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    background: rgba(255, 209, 0, 0.08);
+    border: 1px solid rgba(255, 209, 0, 0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+}
+
+.fsb-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: #7A5C00;
+    background: white;
+    border: 1px solid rgba(255, 209, 0, 0.35);
+    border-radius: 20px;
+    padding: 4px 12px;
+    white-space: nowrap;
+}
+
+.fsb-item i {
+    font-size: 0.9rem;
+    color: var(--primary-dark);
+}
+
+.fsb-item strong {
+    color: #5A4200;
+}
+
+/* ===== 선택된 업체 강조 배너 (Step 3) ===== */
+.selected-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+    border: 1.5px solid #6ee7b7;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    color: #065f46;
+    font-weight: 500;
+    animation: fadeInDown 0.3s ease;
+}
+
+.selected-banner i {
+    font-size: 1.3rem;
+    color: #10b981;
+}
+
+.selected-banner strong {
+    color: #047857;
+}
+
+.scb-price {
+    margin-left: auto;
+    font-weight: 700;
+    color: #047857;
+    font-size: 0.95rem;
+}
+
+/* ===== 발주 진행 상태 바 (Step 4) ===== */
+.order-status-bar {
+    display: flex;
+    align-items: center;
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 16px 12px;
+    gap: 0;
+}
+
+.osb-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    cursor: default;
+}
+
+.osb-step i {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    background: var(--border);
+    color: var(--text-muted);
+    border: 2px solid var(--border);
+    transition: all 0.4s;
+}
+
+.osb-step span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    white-space: nowrap;
+    transition: color 0.4s;
+}
+
+.osb-step.active i {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-text);
+    box-shadow: 0 0 0 4px rgba(255, 209, 0, 0.2);
+}
+
+.osb-step.active span {
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+.osb-step.done i {
+    background: var(--success);
+    border-color: var(--success);
+    color: white;
+}
+
+.osb-step.done span {
+    color: #166534;
+}
+
+.osb-line {
+    flex: 1;
+    height: 3px;
+    background: var(--border);
+    margin: 0 4px;
+    margin-bottom: 22px;
+    transition: background 0.4s;
+}
+
+.osb-line.done {
+    background: #10b981;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== A. AI 로딩 오버레이 ===== */
+.ai-loading-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 16px;
+    border: 1px solid #bfdbfe;
+    animation: fadeInDown 0.3s ease;
+}
+
+.alo-box {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.alo-spinner {
+    font-size: 2.4rem;
+    color: var(--primary);
+}
+
+.alo-spinner i {
+    display: inline-block;
+}
+
+.alo-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alo-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.alo-step.active {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.alo-step.done {
+    color: #10b981;
+}
+
+.alo-step i {
+    font-size: 1.1rem;
+    width: 20px;
+}
+
+/* ===== B. 업체 카드 상세 그리드 ===== */
+.company-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 12px 14px;
+}
+
+.cdg-item .c-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.cdg-item .c-val {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.cdg-item .c-val small {
+    font-size: 0.72rem;
+    font-weight: 500;
+    margin-left: 4px;
+}
+
+/* 신뢰도 바 */
+.trust-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 99px;
+    margin-bottom: 3px;
+    overflow: hidden;
+    width: 60px;
+}
+
+.trust-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #059669);
+    border-radius: 99px;
+}
+
+/* AI 추천 배지 */
+.rec-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--primary);
+    color: var(--primary-text);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+}
+
+/* 재질 태그 */
+.mat-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(255, 209, 0, 0.1);
+    color: #7A5C00;
+    border: 1px solid rgba(255, 209, 0, 0.35);
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin-right: 4px;
+    margin-bottom: 2px;
+}
+
+/* c-rating */
+.c-rating {
+    font-size: 0.8rem;
+    font-weight: normal;
+    margin-left: 8px;
+    color: var(--text-muted);
+}
+
+/* ===== CC 업체 카드 (신규 깔끔 버전) ===== */
+.cc-card {
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    background: white;
+    transition: box-shadow 0.25s, border-color 0.25s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cc-card:hover {
+    box-shadow: 0 4px 20px rgba(255, 209, 0, 0.1);
+    border-color: rgba(255, 209, 0, 0.5);
+}
+
+.cc-recommended {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(255, 209, 0, 0.15);
+}
+
+/* 상단 헤더 */
+.cc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.cc-left {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.cc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--primary);
+    color: var(--primary-text);
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-bottom: 2px;
+    width: fit-content;
+}
+
+.cc-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.cc-name i {
+    color: var(--primary);
+}
+
+.cc-region {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.cc-rating {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    background: #fefce8;
+    border: 1px solid #fde68a;
+    padding: 3px 8px;
+    border-radius: 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.cc-rating i {
+    color: #f59e0b;
+    font-size: 0.85rem;
+}
+
+.cc-rating strong {
+    color: #92400e;
+}
+
+/* 공정 태그 */
+.cc-processes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.cc-proc-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: #f0f9ff;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+    border-radius: 6px;
+    padding: 2px 8px;
+}
+
+/* 수치 스탯 영역 */
+.cc-stats {
+    display: flex;
+    align-items: stretch;
+    background: #FEFDF5;
+    border: 1px solid rgba(255, 209, 0, 0.25);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.cc-stat {
+    flex: 1;
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    text-align: center;
+}
+
+.cc-stat-total {
+    background: rgba(255, 209, 0, 0.08);
+}
+
+.cc-stat-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.cc-stat-value {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    white-space: nowrap;
+}
+
+.cc-stat-sub {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.cc-divider {
+    width: 1px;
+    background: rgba(255, 209, 0, 0.2);
+    margin: 8px 0;
+}
+
+/* 색상 유틸 */
+.clr-green {
+    color: #059669 !important;
+}
+
+.clr-red {
+    color: #dc2626 !important;
+}
+
+.clr-blue {
+    color: var(--primary) !important;
+}
+
+/* 신뢰도 바 */
+.cc-trust {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cc-trust-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.cc-trust-track {
+    flex: 1;
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.cc-trust-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #059669);
+    border-radius: 99px;
+    transition: width 0.6s ease;
+}
+
+/* 재질 태그 */
+.cc-mats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.cc-mat {
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: #f5f3ff;
+    color: #6d28d9;
+    border: 1px solid #ddd6fe;
+    border-radius: 5px;
+    padding: 2px 7px;
+}
+
+/* 액션 버튼 */
+.cc-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.cc-btn-detail {
+    flex: 0 0 auto;
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+}
+
+.cc-btn-select {
+    flex: 1;
+    padding: 9px 16px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.cc-card.selected-card {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(255, 209, 0, 0.2);
+    background: rgba(255, 209, 0, 0.03);
+}
+
+/* ===== 납기 초과 경고 박스 ===== */
+.due-warning-box {
+    display: none;
+    align-items: flex-start;
+    gap: 10px;
+    background: #fff5f5;
+    border: 1.5px solid #fca5a5;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    font-size: 0.84rem;
+    color: #991b1b;
+    line-height: 1.5;
+}
+
+.due-warning-box i {
+    font-size: 1.3rem;
+    color: #dc2626;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.due-warning-box strong {
+    color: #b91c1c;
+}
+
+/* ===== 발주 상태 배지 ===== */
+.osb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+    transition: all 0.4s ease;
+}
+
+.osb-badge::before {
+    content: '●';
+    font-size: 0.6rem;
+}
+
+.osb-badge-idle {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.osb-badge-idle::before {
+    color: #9ca3af;
+}
+
+.osb-badge-waiting {
+    background: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+
+.osb-badge-waiting::before {
+    color: #f59e0b;
+}
+
+.osb-badge-ordered {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+}
+
+.osb-badge-ordered::before {
+    color: #10b981;
+}
+
+.osb-badge-producing {
+    background: #eff6ff;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+}
+
+.osb-badge-producing::before {
+    color: #3b82f6;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* ===== 업로드 미리보기 및 스캔 애니메이션 ===== */
+.upload-box { position: relative; min-height: 200px; }
+.upload-preview {
+    position: relative; width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background: #f8fafc; border-radius: 12px; overflow: hidden;
+}
+.upload-preview img {
+    max-width: 100%; max-height: 180px; object-fit: contain;
+    border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.scan-line {
+    position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    box-shadow: 0 0 15px var(--primary);
+    z-index: 10;
+    display: none;
+    animation: scanAnimation 2s linear infinite;
+}
+@keyframes scanAnimation {
+    0% { top: 0; }
+    50% { top: 100%; }
+    100% { top: 0; }
+}
+
+.file-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px; background: white;
+    border: 1px solid var(--border); border-radius: 10px;
+}
+.file-item i { font-size: 1.2rem; color: var(--primary); }
+.file-item .file-info { flex: 1; font-size: 0.85rem; }
+.file-item .file-info strong { display: block; color: var(--text-dark); }
+.file-item .file-info span { color: var(--text-muted); font-size: 0.75rem; }
