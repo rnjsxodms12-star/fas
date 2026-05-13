@@ -11,7 +11,7 @@ from fastapi.responses import FileResponse
 
 from routers import (
     auth, signup, companies, rfqs, matching, orders,
-    drawings, quotes, reviews, notifications, admin, catalog, legacy
+    drawings, quotes, reviews, notifications, admin, catalog, legacy, vlm
 )
 
 app = FastAPI()
@@ -161,6 +161,7 @@ app.include_router(companies.router)
 app.include_router(rfqs.router)
 app.include_router(orders.router)
 app.include_router(drawings.router)
+app.include_router(vlm.router)
 app.include_router(quotes.router)
 app.include_router(reviews.router)
 app.include_router(notifications.router)
