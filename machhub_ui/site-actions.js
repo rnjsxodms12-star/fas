@@ -1120,8 +1120,8 @@
       ['CNC 가공 부품', 'Bracket Assembly'],
       ['Bracket_Housing.dwg', 'Bracket_Assembly.dwg'],
       ['Bracket_001', 'Bracket_Assembly'],
-      ['ORD-250520-001', 'PO-2025-00123'],
-      ['ORD-250620-014', 'PO-2025-00123'],
+      ['ORD-250520-001', 'PO-20260508-001'],
+      ['ORD-250620-014', 'PO-20260508-001'],
       ['RFQ-250520-001', 'RFQ-20260508-001'],
       ['RFQ-250620-014', 'RFQ-20260508-001'],
       ['128,450,000원', '6,250,000원'],
@@ -1423,7 +1423,7 @@
         ['AI 분석', 'AL6061 표기 확인 · 브라켓 구조 감지'],
         ['누락 정보', '구멍 Ø12mm · 아노다이징 흑색 · 조립 범위'],
         ['RFQ 상태', 'open · 업체 매칭 가능'],
-        ['현재 거래', 'PO-2025-00123 · 포장 완료']
+        ['현재 거래', 'PO-20260508-001 · 포장 완료']
       ],
       note: aiPhase
         ? 'AI가 표시한 누락 항목을 보완하면 RFQ가 확정되고, 다음 단계에서 업체 매칭이 진행됩니다.'
@@ -1663,7 +1663,7 @@
       chip: paid ? '상태 paid' : '상태 payment pending',
       active: '발주·계약',
       items: [
-        ['발주 번호', 'PO-2025-00123'],
+        ['발주 번호', 'PO-20260508-001'],
         ['선택 업체', '스마트정밀 · 평점 4.8'],
         ['총 금액', '6,250,000원 · 부가세 포함'],
         ['계약/보안', 'SGI 계약 지원 · NDA 동의'],
@@ -1831,7 +1831,7 @@
       head?.insertAdjacentHTML('afterend', `
         <div class="scenario-order-accept-bar" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;margin:0 0 16px;border:1px solid #fde68a;background:#fffbeb;border-radius:12px;">
           <div>
-            <div style="font-size:13px;font-weight:900;color:#92400e;">PO-2025-00123 · 도현로보틱스 · Bracket Assembly</div>
+            <div style="font-size:13px;font-weight:900;color:#92400e;">PO-20260508-001 · 도현로보틱스 · Bracket Assembly</div>
             <div style="font-size:13px;color:#64748b;margin-top:4px;">계약/NDA/결제대행 적용 완료. 최종 수락 후 생산 진행도 공유 단계로 이동합니다.</div>
           </div>
           <button type="button" class="btn-primary scenario-order-accept" style="white-space:nowrap;"><i class="ri-check-line"></i> 최종 발주 수락</button>
@@ -1851,7 +1851,7 @@
     });
 
     const firstMeta = orders.querySelector('.mw-list-meta');
-    if (firstMeta) firstMeta.textContent = 'PO-2025-00123 · Bracket Assembly · AL6061 100 EA';
+    if (firstMeta) firstMeta.textContent = 'PO-20260508-001 · Bracket Assembly · AL6061 100 EA';
 
     const callout = orders.querySelector('.mw-callout');
     if (callout) callout.textContent = '계약서와 NDA는 관리자 검수 후 클라이언트에게 전달되었습니다. 최종 수락 후 작업 스케줄이 확정됩니다.';
@@ -1898,13 +1898,13 @@
     if (!reviewsCard) return;
     if (reviewsCard.querySelector('.scenario-admin-review-row')) return;
 
-    // 시연 20번: PO-2025-00123 거래의 리뷰 DB 반영 라인이 명시적으로 보여야 한다.
+    // 시연 20번: PO-20260508-001 거래의 리뷰 DB 반영 라인이 명시적으로 보여야 한다.
     reviewsCard.insertAdjacentHTML('beforeend', `
       <div class="scenario-admin-review-row" style="margin-top:16px;border:1px solid #bbf7d0;background:#f0fdf4;border-radius:12px;padding:16px;">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
           <div>
             <div style="font-size:12px;font-weight:900;color:#047857;margin-bottom:6px;">최근 완료 거래 리뷰</div>
-            <div style="font-size:18px;font-weight:900;color:#111827;">PO-2025-00123 · 도현로보틱스 → 스마트정밀 · 5.0</div>
+            <div style="font-size:18px;font-weight:900;color:#111827;">PO-20260508-001 · 도현로보틱스 → 스마트정밀 · 5.0</div>
             <div style="font-size:13px;color:#475569;margin-top:6px;">Bracket Assembly · 6,250,000원 · 거래 상태 completed · 리뷰 DB 반영 완료</div>
           </div>
           <span class="mw-badge green">DB 반영 완료</span>
