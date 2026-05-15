@@ -2,7 +2,7 @@
 
 | Role | Contributor | Repository |
 |------|------|--------|
-| Model Training & Drawing Recognition | 김지형 | [amadda0616-hash/IMMA](https://github.com/amadda0616-hash/IMMA) |
+| Model Training & Drawing Recognition | 한지형 | [amadda0616-hash/IMMA](https://github.com/amadda0616-hash/IMMA) |
 | Server & Frontend | 권태은 | [rnjsxodms12-star/fas](https://github.com/rnjsxodms12-star/fas) |
 | Database & RAG | 김태훈 | [hexadark/IMMA_Personal_Server_Archive](https://github.com/hexadark/IMMA_Personal_Server_Archive) |
 
