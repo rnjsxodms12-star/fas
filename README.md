@@ -6,6 +6,13 @@
 | Server & Frontend | 권태은 | [rnjsxodms12-star/fas](https://github.com/rnjsxodms12-star/fas) |
 | Database & RAG | 김태훈 | [hexadark/IMMA_Personal_Server_Archive](https://github.com/hexadark/IMMA_Personal_Server_Archive) |
 
+## 개발 흐름
+
+초기에는 FastAPI 서버, Railway 배포, PostgreSQL 연결, 기본 API 및 UI 흐름을 먼저 구성했다.  
+이후 RAG/DB 팀원이 해당 구조를 참고하여 별도 서버 저장소에서 DB schema, lookup data, matching pipeline을 고도화했다.
+
+따라서 본 저장소는 IMMA 프로젝트의 초기 서버/프론트 기반과 시연 흐름 정리를 중심으로 하며,  
+RAG/DB 매칭 고도화 구조는 팀원 저장소에서 관리되었다.
 
 # IMMA: 지능형 제조 가공 매칭 플랫폼
 
