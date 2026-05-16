@@ -1,0 +1,138 @@
+로컬에서 바로 실행하는 방법 (설치부터 실행까지)
+
+PC에 Python (3.9 이상)
+
+bash
+
+py --version
+-> 3.14.2
+
+mkdir imma-mvp
+
+cd imma-mvp
+
+pip install fastapi uvicorn
+
+
+main.py 생성 후, 아래 코드 넣기
+
+
+from fastapi import FastAPI, UploadFile
+
+app = FastAPI()
+
+# 1. 더미 분석
+def fake_analyze(filename):
+    if "steel" in filename:
+        return {"material": "SUS304", "process": "milling"}
+    else:
+        return {"material": "aluminum", "process": "turning"}
+
+# 2. 더미 업체 DB
+companies = [
+    {"name": "A공장", "process": "milling"},
+    {"name": "B공장", "process": "turning"},
+    {"name": "C공장", "process": "milling"}
+]
+
+# 3. 매칭
+def match(data):
+    result = []
+    for c in companies:
+        if c["process"] == data["process"]:
+            result.append(c["name"])
+    return result
+
+# 4. API
+@app.post("/analyze")
+async def analyze(file: UploadFile):
+    data = fake_analyze(file.filename)
+    result = match(data)
+
+    return {
+        "analysis": data,
+        "recommended": result
+    }
+
+
+uvicorn main:app --reload
+ctrl+click
+(ctrl+c로 종료)
+
+테스트 
+
+http://127.0.0.1:8000/
+
+http://127.0.0.1:8000/docs
+
+/analyze 클릭
+
+“Try it out” 클릭
+
+아무 파일 하나 업로드
+
+Execute
+
+->
+Responses
+Curl
+
+curl -X 'POST' \
+  'http://127.0.0.1:8000/analyze' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'file=@dummy.txt;type=text/plain'
+Request URL
+http://127.0.0.1:8000/analyze
+Server response
+Code	Details
+200	
+Response body
+Download
+{
+  "analysis": {
+    "material": "aluminum",
+    "process": "turning"
+  },
+  "recommended": [
+    "B공장"
+  ]
+}
+Response headers
+ content-length: 82 
+ content-type: application/json 
+ date: Mon,20 Apr 2026 08:13:24 GMT 
+ server: uvicorn 
+Responses
+Code	Description	Links
+200	
+Successful Response
+
+Media type
+
+application/json
+Controls Accept header.
+Example Value
+Schema
+"string"
+No links
+422	
+Validation Error
+
+Media type
+
+application/json
+Example Value
+Schema
+{
+  "detail": [
+    {
+      "loc": [
+        "string",
+        0
+      ],
+      "msg": "string",
+      "type": "string"
+    }
+  ]
+}
