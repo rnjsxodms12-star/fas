@@ -1,0 +1,19 @@
+py는 단순 API 흐름 설명용으로 유지하고,
+py2/main2.py는 DB 연결 확인까지 포함한 버전으로 구성해줘.
+
+로컬 PostgreSQL 기준:
+host=localhost
+port=5432
+user=postgres
+password=1234
+database=postgres
+
+DATABASE_URL은 다음 형식으로 사용:
+postgresql://postgres:1234@localhost:5432/postgres
+
+필요한 기능:
+1. FastAPI 서버 실행
+2. GET / 로 서버 상태 확인
+3. GET /db-test 로 PostgreSQL 연결 확인
+4. POST /analyze 로 파일 업로드 기반 더미 분석
+5. 더미 분석 결과의 process에 따라 업체 추천
