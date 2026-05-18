@@ -1,0 +1,71 @@
+{
+  "drawing_no": "TEP410-0601-01",
+  "referenced_standards": [],
+  "parts": [
+    {
+      "part_name": "テープ",
+      "material": {
+        "raw_text": "SUS304",
+        "category": "스테인리스강"
+      },
+      "quantity": 1,
+      "required_processes": [
+        "casting",
+        "turning_rough",
+        "turning_finish",
+        "internal_grinding"
+      ],
+      "max_envelope_mm": {
+        "length": 25,
+        "width": 30,
+        "height": 30
+      },
+      "dimensions": [
+        {
+          "feature": "외경",
+          "value": 30,
+          "unit": "mm",
+          "type": "outer_diameter"
+        },
+        {
+          "feature": "전체 길이",
+          "value": 25,
+          "unit": "mm",
+          "type": "length"
+        }
+      ],
+      "tolerances": [
+        {
+          "feature": "지시 없는 공차",
+          "text": "로스트왁스 주조의 일반공차",
+          "type": "일반공차"
+        }
+      ],
+      "gdt": [
+        {
+          "type": "직각도",
+          "symbol": "⊥",
+          "value": 0.3,
+          "unit": "mm",
+          "datum": "X",
+          "feature": "지정면"
+        }
+      ],
+      "surface_roughness": [
+        {
+          "feature": "실린더 내면 가공",
+          "Ra": 1.6,
+          "unit": "μm"
+        },
+        {
+          "feature": "실린더 내면 마무리",
+          "Ra": 0.4,
+          "unit": "μm"
+        }
+      ],
+      "post_treatment": null,
+      "unsupported": false,
+      "unsupported_reason": null
+    }
+  ]
+}

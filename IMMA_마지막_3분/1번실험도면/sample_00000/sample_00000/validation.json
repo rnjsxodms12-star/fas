@@ -1,0 +1,61 @@
+{
+  "schema_valid": true,
+  "schema_violations": [],
+  "region_counts": {
+    "title_block": 1,
+    "view": 2,
+    "table": 0,
+    "notes": 3,
+    "isometric": 0
+  },
+  "title_block": {
+    "null_count": 1,
+    "total_fields": 13,
+    "null_ratio": 0.077,
+    "field_status": {
+      "Project_ID": "ok",
+      "Drawing_No": "ok",
+      "Title": "ok",
+      "Part_Name": "ok",
+      "Material": "ok",
+      "Mass": "ok",
+      "Scale": "ok",
+      "Sheet": "ok",
+      "Engineer": "ok",
+      "Designer": "ok",
+      "Approved": "ok",
+      "Date": "ok",
+      "State": "null"
+    }
+  },
+  "content_counts": {
+    "measures_total": 4,
+    "gdt_total": 1,
+    "roughness_total": 1,
+    "notes_lines_total": 15,
+    "table_rows_total": 0,
+    "table_cells_total": 0,
+    "table_cells_empty": 0,
+    "table_empty_ratio": 0.0
+  },
+  "multi_drawing_warning": null,
+  "image": {
+    "path": "/mnt/c/Users/user/github/Drawing/outputs/v_b_export_samples/sample_00000/image.jpg",
+    "exists": true,
+    "size": [
+      3365,
+      2077
+    ],
+    "size_mb": 0.51
+  },
+  "verdict": "PASS",
+  "issues": [],
+  "warnings": [],
+  "sample_id": "sample_00000",
+  "folder": "outputs/v_b_export_samples/sample_00000",
+  "files": {
+    "v_b_result": "v_b_result.json",
+    "image": "image.jpg",
+    "validation": "validation.json"
+  }
+}
