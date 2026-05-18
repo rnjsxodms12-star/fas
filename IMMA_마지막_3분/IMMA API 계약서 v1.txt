@@ -1,0 +1,119 @@
+IMMA API 계약서 v1
+VLM Result → Match Input → Match API Response
+
+1. 기준 샘플 파일
+
+- 입력 샘플: sample_vlm_result.json
+- 출력 샘플: sample_match_v2_response.json
+- 현재는 mock/sample 기준
+- 실제 VLM 결과가 나오면 이 구조에 맞춰 필드명 조정
+
+2. 목적
+
+VLM/도면인식 결과 JSON을 서버 매칭 API에서 사용할 수 있는 Match Input 형식으로 변환하고,
+PostgreSQL/RAG 기반 업체 매칭 결과를 반환하기 위한 입력·출력 구조를 정의한다.
+
+3. 전체 흐름
+
+sample_vlm_result.json
+→ VLM Result 파싱
+→ Match Input 생성
+→ /api/match-v2 요청
+→ sample_match_v2_response.json 형태로 응답
+
+4. VLM Result → Match Input 변환 규칙 v0.1
+
+parts[].material.raw_text
+→ match_input.material
+
+parts[].material.type
+→ match_input.material_match_type
+
+parts[].required_processes
+→ match_input.processes
+
+parts[].quantity
+→ match_input.quantity
+
+parts[].max_envelope_mm
+→ match_input.envelope
+
+parts[].tolerances
+→ match_input.tightest_it 추출 대상
+예: Ø15k5, Ø20j5 → IT5
+
+parts[].post_treatment
+→ match_input.post_treatment
+
+parts[].surface_roughness 중 Ra가 null인 경우
+→ warnings에 "조도 미검증" 추가
+
+5. 현재 상태
+
+현재 문서는 실제 VLM 결과가 완성되기 전,
+mock/sample JSON을 기준으로 서버-매칭 API 연동을 먼저 고정하기 위한 계약서이다.
+
+실제 VLM 결과가 나오면 아래 항목을 조정한다.
+
+- 필드명
+- 누락 필드 처리 방식
+- tolerance / IT grade 추출 방식
+- surface roughness 추출 방식
+- material alias 처리 방식
+- 공정명 표준화 방식
+
+
+6. 누락 필드 처리 규칙 v0.1
+
+실제 VLM 결과는 OCR/VLM 인식 오류, 탐지 실패, 빈값, null 값이 포함될 수 있으므로
+아래 규칙에 따라 서버에서 기본값 또는 warnings를 부여한다.
+
+1. parts 배열이 없는 경우
+- 처리: 매칭 불가
+- warnings: "부품 정보 없음"
+
+2. parts[].material.raw_text가 없는 경우
+- 처리: 해당 part는 재질 기반 매칭 불가
+- warnings: "재질 미검증"
+
+3. parts[].required_processes가 없거나 빈 배열인 경우
+- 처리: 공정 기반 매칭 생략 또는 기본 공정 미지정 처리
+- warnings: "공정 미검증"
+
+4. parts[].quantity가 없는 경우
+- 처리: 기본값 1 적용
+- warnings: "수량 미검증, 기본값 1 적용"
+
+5. parts[].max_envelope_mm가 없는 경우
+- 처리: 장비 크기 검증 생략
+- warnings: "외형 크기 미검증"
+
+6. parts[].tolerances가 없거나 IT 등급을 추출할 수 없는 경우
+- 처리: match_input.tightest_it = null
+- warnings: "공차/IT 등급 미검증"
+
+7. parts[].surface_roughness가 없거나 Ra가 null인 경우
+- 처리: 조도 기반 검증 생략
+- warnings: "조도 미검증"
+
+8. parts[].post_treatment가 없는 경우
+- 처리: 후처리 조건 없음으로 처리
+- warnings 추가 없음
+
+9. material / process / tolerance 값이 DB 표준명과 다른 경우
+- 처리: alias 사전 또는 정규화 규칙으로 변환 시도
+- 변환 실패 시 warnings에 "표준명 매핑 실패" 추가
+
+10. 하나의 도면에 parts가 여러 개인 경우
+- 처리: part 단위로 match_input을 생성하고 각각 후보 업체를 반환한다.
+
+
+
+7. 검증 상태
+
+2026-05-05 기준,
+sample_vlm_result.json을 /api/match-v2에 입력했을 때
+sample_match_v2_response.json 형태의 응답이 정상 반환되는 것을 확인했다.
+
+현재 검증은 mock/sample 데이터 기준이며,
+실제 VLM 결과가 나오면 필드명, 누락값, 공정명, 재질 alias를 기준으로 추가 조정한다.
